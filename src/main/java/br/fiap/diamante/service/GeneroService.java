@@ -2,9 +2,12 @@ package br.fiap.diamante.service;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import br.fiap.diamante.filter.GeneroSpecification;
 import br.fiap.diamante.model.Genero;
+import br.fiap.diamante.model.GeneroFilters;
 import br.fiap.diamante.repository.GeneroRepository;
 
 @Service
@@ -16,8 +19,9 @@ public class GeneroService {
         this.generoRepository = generoRepository;
     }
 
-    public Page<Genero> listarGeneros(Pageable pageable) {
-        return generoRepository.findAll(pageable);
+    public Page<Genero> listarGeneros(Pageable pageable, GeneroFilters filters) {
+        Specification<Genero> spec = GeneroSpecification.build(filters);
+        return generoRepository.findAll(spec, pageable);
     }
 
     public Genero postarGenero(Genero genero){

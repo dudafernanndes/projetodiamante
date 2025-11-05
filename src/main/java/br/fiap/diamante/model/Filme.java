@@ -59,7 +59,7 @@ public class Filme {
         return EntityModel.of(
             this,
             linkTo(methodOn(FilmeController.class).buscarFilmePorId(id)).withSelfRel(),
-            linkTo(methodOn(FilmeController.class).getAll(null, null)).withRel("filmes")
+            linkTo(FilmeController.class).withRel("filmes")
         );
     }
 }

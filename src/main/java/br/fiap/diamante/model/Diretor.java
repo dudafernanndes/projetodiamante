@@ -32,7 +32,7 @@ public class Diretor {
         return EntityModel.of(
             this,
             linkTo(methodOn(DiretorController.class).buscarDiretorPorId(id)).withSelfRel(),
-            linkTo(methodOn(DiretorController.class).getAll(null, null)).withRel("diretores")
+            linkTo(DiretorController.class).withRel("diretores")
         );
     }
 }

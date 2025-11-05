@@ -33,7 +33,7 @@ public class Genero {
         return EntityModel.of(
             this,
             linkTo(methodOn(GeneroController.class).buscarGeneroPorId(id)).withSelfRel(),
-            linkTo(methodOn(GeneroController.class).getAll(null, null)).withRel("generos")
+            linkTo(GeneroController.class).withRel("generos")
         );
     }
 }
