@@ -32,4 +32,15 @@ public class FilmeService {
         return filmeRepository.findById(id).orElse(null);
     }
 
+    public void deletarFilme(Long id) {
+        var filme = filmeRepository.findById(id).orElse(null);;
+        filmeRepository.delete(filme);
+    }
+
+    public Filme atualizarNotaFilme(Long id, Double notaImbd){
+        var filme = filmeRepository.findById(id).orElse(null);;
+        filme.setNotaImbd(notaImbd);
+        return filmeRepository.save(filme);
+    }
+    
 }  

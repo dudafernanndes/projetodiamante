@@ -43,4 +43,15 @@ public class FilmeController {
     public Filme buscarFilmePorId(@PathVariable Long id) {
         return filmeService.getFilmeById(id);
     }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deletarFilme(@PathVariable Long id) {
+        filmeService.deletarFilme(id);
+    }
+
+    @PatchMapping("/{id}/nota")
+    public Filme atualizarNota(@PathVariable Long id, @RequestParam Double notaImbd) {
+        return filmeService.atualizarNotaFilme(id, notaImbd);
+    }
 }
