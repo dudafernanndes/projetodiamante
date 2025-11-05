@@ -1,10 +1,5 @@
 package br.fiap.diamante.model;
 
-import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.*;
-
-import org.springframework.hateoas.EntityModel;
-
-import br.fiap.diamante.controller.DiretorController;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -27,12 +22,4 @@ public class Diretor {
     @NotBlank(message = "{diretor.nacionalidade.notblank}")
     @Size(min = 2, max = 50, message = "{diretor.nacionalidade.size}")
     private String nacionalidade;
-
-    public EntityModel<Diretor> toEntityModel() {
-        return EntityModel.of(
-            this,
-            linkTo(methodOn(DiretorController.class).buscarDiretorPorId(id)).withSelfRel(),
-            linkTo(DiretorController.class).withRel("diretores")
-        );
-    }
 }

@@ -1,16 +1,13 @@
 package br.fiap.diamante.controller;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.data.web.PagedResourcesAssembler;
-import org.springframework.hateoas.EntityModel;
-import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import br.fiap.diamante.model.Genero;
-import br.fiap.diamante.model.GeneroFilters;
 import br.fiap.diamante.service.GeneroService;
 
 @RestController
@@ -24,13 +21,10 @@ public class GeneroController {
     }
 
     @GetMapping
-    public PagedModel<EntityModel<Genero>> getAll(
-            GeneroFilters filters,
-            @PageableDefault(size = 10, sort = "nome", direction = Direction.ASC) Pageable pageable,
-            PagedResourcesAssembler<Genero> assembler
+    public Page<Genero> getAll(
+            @PageableDefault(size = 10, sort = "nome", direction = Direction.ASC) Pageable pageable
     ) {
-        var page = generoService.listarGeneros(pageable, filters);
-        return assembler.toModel(page, Genero::toEntityModel);
+        return generoService.listarGeneros(pageable);
     }
 
     @PostMapping
