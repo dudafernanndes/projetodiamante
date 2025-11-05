@@ -1,5 +1,9 @@
 package br.fiap.diamante.controller;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +20,12 @@ public class DiretorController {
         this.diretorService = diretorService;
     }
 
+    @GetMapping
+    public PagedModel<EntityModel<Diretor>> getAll(Pageable pageable, PagedResourcesAssembler<Diretor> assembler) {
+        var page = diretorService.listarDiretores(pageable);
+        return assembler.toModel(page, Diretor::toEntityModel);
+    }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public Diretor postarDiretor(@RequestBody Diretor diretor) {
@@ -26,4 +36,5 @@ public class DiretorController {
     public Diretor buscarDiretorPorId(@PathVariable Long id) {
         return diretorService.getDiretorById(id);
     }
+    
 }

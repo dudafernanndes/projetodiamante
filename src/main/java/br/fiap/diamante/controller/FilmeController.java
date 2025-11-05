@@ -1,5 +1,9 @@
 package br.fiap.diamante.controller;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PagedResourcesAssembler;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.PagedModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +18,12 @@ public class FilmeController {
 
     public FilmeController(FilmeService filmeService){
         this.filmeService = filmeService;
+    }
+
+    @GetMapping
+    public PagedModel<EntityModel<Filme>> getAll(Pageable pageable, PagedResourcesAssembler<Filme> assembler) {
+        var page = filmeService.listarFilmes(pageable);
+        return assembler.toModel(page, Filme::toEntityModel);
     }
 
     @PostMapping
